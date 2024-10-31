@@ -145,7 +145,57 @@ Deploying a Django application to AWS is a powerful way to make your project sca
     ``` bash
     deactivate
 
-### Step 5: Configure Gunicorn
+## Step 5: Configure Gunicorn
+
+### Change to the user's home directory:
+   - ``` bash
+    cd ~
+
+### Create a Gunicorn socket file:
+    ``` bash
+    sudo vim /etc/systemd/system/gunicorn.socket
+
+  - Add the following configuration:
+    ``` bash
+    [Unit]
+    Description=gunicorn socket
+    
+    [Socket]
+    ListenStream=/run/gunicorn.sock
+    
+    [Install]
+    WantedBy=sockets.target
+
+### Create a Gunicorn service file:
+    ``` bash
+    sudo vim /etc/systemd/system/gunicorn.service
+
+  - Add the following configuration:
+    ``` bash
+    [Unit]
+    Description=gunicorn daemon
+    Requires=gunicorn.socket
+    After=network.target
+    
+    [Service]
+    User=ubuntu
+    Group=www-data
+    WorkingDirectory=/home/ubuntu/app
+    ExecStart=/home/ubuntu/app/env/bin/gunicorn \
+              --access-logfile - \
+              --workers 3 \
+              --bind unix:/run/gunicorn.sock \
+              jhothishyaaidjango.wsgi:application
+    
+    [Install]
+    WantedBy=multi-user.target
+
+## Step 6: Configure Nginx
+
+### Remove Default Configuration
+  - Navigate to Nginx’s enabled sites and remove the default file:
+
+    
 
 
    
