@@ -191,9 +191,62 @@ Deploying a Django application to AWS is a powerful way to make your project sca
 
 ### Remove Default Configuration
   - Navigate to Nginx’s enabled sites and remove the default file:
+    ``` bash
+    cd /etc/nginx/sites-enabled
+    sudo rm -f default
 
-    
+### Create a New Nginx Server Block
+  - Create a new server block:
+    ``` bash
+    sudo vim /etc/nginx/sites-available/myproject
 
+  - Add the following configuration:
+    ``` bash
+    server {
+    listen 80 default_server;
+    server_name _;
 
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /staticfiles/ {
+        root /home/ubuntu/app;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+    }
+    }
+
+### Enable the Server Block
+  - Create a symbolic link to enable the new configuration:
+    ``` bash
+    sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled/
+
+  - Add www-data to the ubuntu user group to access necessary directories:
+    ``` bash
+    sudo gpasswd -a www-data ubuntu
+
+## Step 7: Start and Enable Services
+
+### Enable and Start Gunicorn Socket
+  - run
+    ``` bash
+    sudo systemctl start gunicorn.socket
+    sudo systemctl enable gunicorn.socket
+
+### Restart Nginx and Gunicorn Services
+  - run
+    ``` bash
+    sudo systemctl restart nginx
+    sudo service gunicorn restart
+    sudo service nginx restart
+
+Your Django application should now be accessible via your EC2 instance’s public IP address or domain name.
+
+## Conclusion
+This setup enables you to run a Django application on AWS using Docker, Gunicorn, and Nginx. This method is robust for production, offering a scalable and reliable solution. With this setup, you can now scale your application and handle requests efficiently.
+
+- Happy coding and deploying!
    
 
