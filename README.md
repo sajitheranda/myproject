@@ -38,4 +38,4 @@ Deploying a Django application to AWS is a powerful way to make your project sca
 
 ## Step 1: Set Up Your AWS Environment
 - Check STATIC_URL and STATIC_ROOT
--- Verify that you have correctly set STATIC_URL and STATIC_ROOT in your Django settings:
+  - Verify that you have correctly set STATIC_URL and STATIC_ROOT in your Django settings:
