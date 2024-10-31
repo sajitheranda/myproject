@@ -151,7 +151,6 @@ Deploying a Django application to AWS is a powerful way to make your project sca
     cd ~
 
 ### Create a Gunicorn socket file:
-    ``` bash
     sudo vim /etc/systemd/system/gunicorn.socket
 
   - Add the following configuration:
@@ -166,7 +165,6 @@ Deploying a Django application to AWS is a powerful way to make your project sca
     WantedBy=sockets.target
 
 ### Create a Gunicorn service file:
-    ``` bash
     sudo vim /etc/systemd/system/gunicorn.service
 
   - Add the following configuration:
