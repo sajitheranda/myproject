@@ -6,7 +6,7 @@ Deploying a Django application to AWS is a powerful way to make your project sca
 - [Prerequisites](#prerequisites)
 - [Step 1: Set Up Your AWS Environment](#step-1-set-up-your-aws-environment)
 - [Step 2: Change the Django Application](#step-2-change-the-django-application)
-  - [Check STATIC_URL and STATIC_ROOT](#check-static_url-and-static_root)
+  - [Check STATIC_URL and STATIC_ROOT](#Check-STATIC_URL-and-STATIC_ROOT)
   - [Middleware Configuration](#middleware-configuration)
   - [Static Files Storage Configuration](#static-files-storage-configuration)
   - [Serving Static Files through URL Patterns](#serving-static-files-through-url-patterns)
