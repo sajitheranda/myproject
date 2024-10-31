@@ -39,3 +39,57 @@ Deploying a Django application to AWS is a powerful way to make your project sca
 ## Step 1: Set Up Your AWS Environment
 - Check STATIC_URL and STATIC_ROOT
   - Verify that you have correctly set STATIC_URL and STATIC_ROOT in your Django settings:
+    ``` bash
+    # settings.py
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this matches your collectstatic output
+
+- Middleware Configuration
+  - Add WhiteNoise to your middleware list in settings.py:
+    ``` bash
+    MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',  # Enhances security
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serves static files
+    ...
+    ]
+
+- Static Files Storage Configuration
+  - Enable caching of static files by setting STATICFILES_STORAGE in settings.py:
+    ``` bash
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+- Serving Static Files through URL Patterns
+  - Ensure your Django application serves the static files through your URL patterns:
+    ``` bash
+    from django.conf import settings
+    from django.conf.urls.static import static
+    
+    urlpatterns = [
+        # Your URL patterns here
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+- Example Configuration
+  - Here’s a typical settings.py configuration for using WhiteNoise:
+    ``` bash
+    import os
+
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+        ...
+    ]
+    
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+- Ensure Static Files are Collected
+  - Make sure your static files are properly collected:
+    ``` bash
+    python manage.py collectstatic
+
+
