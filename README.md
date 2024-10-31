@@ -93,6 +93,60 @@ Deploying a Django application to AWS is a powerful way to make your project sca
     python manage.py collectstatic
 
 
-Step 3: Create a Directory and Download Your Application on AWS
-Create a directory for your Django application:
+## Step 3: Create a Directory and Download Your Application on AWS
+
+1. Create a directory for your Django application
+   ``` bash
+   cd ~
+   mkdir app
+   cd app
+
+2. Download your application. If it’s hosted on GitHub, clone it directly:
+   ``` bash
+   git clone https://github.com/sajitheranda/myproject.git
+
+## Step 4: Set Up the Django Project
+
+### Create a Virtual Environment
+  - To keep dependencies isolated, create a virtual environment:
+    ``` bash
+    python3 -m venv env
+
+### Activate the Virtual Environment
+  - ``` bash
+    source env/bin/activate
+
+
+### Install Required Libraries
+  - Install Libraries from requirements.txt
+  - To install project dependencies:
+  - ``` bash
+    pip install -r requirements.txt
+
+### Install Gunicorn
+  - Install Gunicorn:
+    ``` bash
+    pip install gunicorn
+    
+### Install WhiteNoise
+  - Install WhiteNoise:
+    ``` bash
+    pip install whitenoise
+
+
+### Run Django Migrations and Collect Static Files
+  - Prepare your database and gather static files:
+    ``` bash
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py collectstatic
+
+  - Deactivate the virtual environment:
+    ``` bash
+    deactivate
+
+### Step 5: Configure Gunicorn
+
+
+   
 
