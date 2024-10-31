@@ -148,7 +148,6 @@ Deploying a Django application to AWS is a powerful way to make your project sca
 ## Step 5: Configure Gunicorn
 
 ### Change to the user's home directory:
-   - ``` bash
     cd ~
 
 ### Create a Gunicorn socket file:
